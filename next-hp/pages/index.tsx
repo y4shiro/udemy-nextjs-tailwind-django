@@ -1,10 +1,17 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <div className="min-h-screen py-0 px-2 flex flex-col justify-center items-center">
+      <Head>
+        <title>Create Next App</title>
+        <link rel="icon" href="/favicon.ico"></link>
+      </Head>
+
+      <h1>Hello Next.js</h1>
+    </div>
+  );
 };
 
 export default Home;
