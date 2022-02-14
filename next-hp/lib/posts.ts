@@ -7,8 +7,8 @@ export type PostType = {
   body: string;
 };
 
-export async function getAllPostData() {
+export const getAllPostData = async () => {
   const res = await fetch(new URL(apiUrl).href);
   const posts = (await res.json()) as PostType[];
   return posts;
-}
+};
