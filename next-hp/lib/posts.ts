@@ -31,5 +31,5 @@ export const getPostData = async (id: string) => {
   const res = await fetch(new URL(`${apiUrl}/${id}/`).href);
   const post: PostType = await res.json();
 
-  return { post };
+  return post;
 };
