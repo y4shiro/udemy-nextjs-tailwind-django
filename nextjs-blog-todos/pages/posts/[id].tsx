@@ -14,7 +14,7 @@ type Props = {
 const Post: React.VFC<Props> = ({ post }) => {
   const router = useRouter();
 
-  if (!post) {
+  if (router.isFallback || !post) {
     return <div>Loading...</div>;
   }
   return (
@@ -39,7 +39,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -50,6 +50,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       post,
     },
+    revalidate: 3,
   };
 };
 
