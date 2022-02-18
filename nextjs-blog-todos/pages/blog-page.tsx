@@ -5,10 +5,10 @@ import { ChevronDoubleLeftIcon } from '@heroicons/react/outline';
 
 import { Layout } from '../components/Layout';
 
-const TaskPage: NextPage = () => {
+const BlogPage: NextPage = () => {
   return (
-    <Layout title="Task page">
-      <Link href="MainPage" passHref>
+    <Layout title="Blog page">
+      <Link href="main-page" passHref>
         <div className="flex cursor-pointer mt-12">
           <ChevronDoubleLeftIcon className="w-6 h-6 mr-3" />
           <span>Back to main page</span>
@@ -18,4 +18,4 @@ const TaskPage: NextPage = () => {
   );
 };
 
-export default TaskPage;
+export default BlogPage;
