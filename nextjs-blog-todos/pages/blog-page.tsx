@@ -1,14 +1,22 @@
 import React from 'react';
-import { NextPage } from 'next';
+import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import { ChevronDoubleLeftIcon } from '@heroicons/react/outline';
 
 import { Layout } from '../components/Layout';
+import { Post } from '../components/Post';
+import { getAllPostsData } from '../lib/posts';
 
-const BlogPage: NextPage = () => {
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
+
+const BlogPage: NextPage<Props> = ({ filteredPosts }) => {
   return (
     <Layout title="Blog page">
-      <Link href="main-page" passHref>
+      <ul>
+        {filteredPosts &&
+          filteredPosts.map((post) => <Post key={post.id} post={post} />)}
+      </ul>
+      <Link href="/main-page" passHref>
         <div className="flex cursor-pointer mt-12">
           <ChevronDoubleLeftIcon className="w-6 h-6 mr-3" />
           <span>Back to main page</span>
@@ -19,3 +27,11 @@ const BlogPage: NextPage = () => {
 };
 
 export default BlogPage;
+
+export const getStaticProps = async () => {
+  const filteredPosts = await getAllPostsData();
+
+  return {
+    props: { filteredPosts },
+  };
+};

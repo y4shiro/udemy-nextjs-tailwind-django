@@ -8,7 +8,7 @@ import { Layout } from '../components/Layout';
 const TaskPage: NextPage = () => {
   return (
     <Layout title="Task page">
-      <Link href="main-page" passHref>
+      <Link href="/main-page" passHref>
         <div className="flex cursor-pointer mt-12">
           <ChevronDoubleLeftIcon className="w-6 h-6 mr-3" />
           <span>Back to main page</span>
