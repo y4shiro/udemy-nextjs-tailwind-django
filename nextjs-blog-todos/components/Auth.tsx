@@ -34,7 +34,7 @@ const Auth: React.VFC = () => {
           cookie.set('access_token', data.access, options);
         });
 
-      router.push('main-page');
+      router.push('/main-page');
     } catch (e) {
       alert(e);
     }
