@@ -1,13 +1,35 @@
 import React from 'react';
 import Link from 'next/link';
+import Cookie from 'universal-cookie';
 
-import { TaskType } from '../lib/tasks';
+import type { KeyedMutator } from 'swr';
+import type { TaskType } from '../lib/tasks';
+
+import { TrashIcon } from '@heroicons/react/outline';
+
+const cookie = new Cookie();
 
 type Props = {
   task: TaskType;
+  taskDeleted: KeyedMutator<TaskType[]>;
 };
 
-const Task: React.VFC<Props> = ({ task }) => {
+const Task: React.VFC<Props> = ({ task, taskDeleted }) => {
+  const deleteTask = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_RESTAPI_URL}api/tasks/${task.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${cookie.get('access_token')}`,
+      },
+    }).then((res) => {
+      if (res.status === 401) {
+        alert('JWT Token not valid');
+      }
+    });
+    taskDeleted();
+  };
+
   return (
     <div>
       <span>{task.id}</span>
@@ -17,6 +39,12 @@ const Task: React.VFC<Props> = ({ task }) => {
           {task.title}
         </span>
       </Link>
+      <div className="float-right ml-20">
+        <TrashIcon
+          className="h-6 w-6 mr-2 cursor-pointer"
+          onClick={deleteTask}
+        />
+      </div>
     </div>
   );
 };
