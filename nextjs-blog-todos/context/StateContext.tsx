@@ -2,21 +2,23 @@ import { createContext, useState } from 'react';
 import { TaskType } from '../lib/tasks';
 
 type TaskContextType = {
-  selectedTask: Pick<TaskType, 'id' | 'title'> | null;
+  selectedTask: Pick<TaskType, 'id' | 'title'>;
   setSelectedTask: (task: Pick<TaskType, 'id' | 'title'>) => void;
 };
-
-export const StateContext = createContext<TaskContextType>({
-  selectedTask: null,
-  setSelectedTask: (task) => {},
-});
 
 type Props = {
   children: React.ReactChild;
 };
 
+const contextInitValue = { id: 0, title: '' };
+
+export const StateContext = createContext<TaskContextType>({
+  selectedTask: contextInitValue,
+  setSelectedTask: (task) => {},
+});
+
 const StateContextProvider: React.VFC<Props> = ({ children }) => {
-  const [selectedTask, setSelectedTask] = useState({ id: 0, title: '' });
+  const [selectedTask, setSelectedTask] = useState(contextInitValue);
 
   return (
     <StateContext.Provider value={{ selectedTask, setSelectedTask }}>
